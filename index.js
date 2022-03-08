@@ -27,14 +27,6 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(
-    cookieSession({
-        name: "session",
-        keys: [process.env.SESSION_KEY],
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    })
-);
-
 // initialize cloudinary
 cloudinary.config({ 
     cloud_name: 'pear-programming', 
@@ -43,6 +35,13 @@ cloudinary.config({
 });
 
 // initialize passport
+app.use(
+    cookieSession({
+        name: "pear-session",
+        keys: [process.env.SESSION_KEY],
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
