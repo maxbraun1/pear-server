@@ -27,7 +27,7 @@ router.get("/google",
 
 // Google API Callback
 router.get("/google/callback", passport.authenticate("google"), (req, res) => {
-  res.redirect('http://localhost:3000/feed');
+  res.redirect('https://maxbraun1.github.io/pear-client/feed');
 });
 
 // Logout
