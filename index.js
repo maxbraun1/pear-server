@@ -19,7 +19,7 @@ const app = express();
 
 app.use(express.json());
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://maxbraun1.github.io', 
     credentials:true,
     optionSuccessStatus:200,
 }
