@@ -46,8 +46,6 @@ cloudinary.config({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const port = process.env.PORT;
-
 const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri);
@@ -59,6 +57,6 @@ app.use("/categories", categoryRouter);
 app.use("/requests", requestRouter);
 app.post("/message", sendMessage)
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Server is running`);
 });
