@@ -21,6 +21,8 @@ app.use(express.json());
 const corsOptions ={
     origin:'https://pearprogramming.co', 
     credentials:true,
+    secure:true,
+    sameSite:'none',
     optionSuccessStatus:200,
 }
 app.use(cors(corsOptions));
