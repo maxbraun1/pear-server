@@ -21,8 +21,6 @@ app.use(express.json());
 const corsOptions ={
     origin:'https://pearprogramming.co', 
     credentials:true,
-    secure:true,
-    sameSite:'none',
     optionSuccessStatus:200,
 }
 app.use(cors(corsOptions));
@@ -36,12 +34,16 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET 
 });
 
-// initialize passport
+// initialize passport and cookies
+app.set('trust proxy', 1)
 app.use(
     cookieSession({
         name: "pear-session",
         keys: [process.env.SESSION_KEY],
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        secure: true,
+        httpOnly: true,
+        sameSite: 'none'
     })
 );
 app.use(passport.initialize());
