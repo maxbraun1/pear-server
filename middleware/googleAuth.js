@@ -8,7 +8,7 @@ dotenv.config()
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://pearprogramming.co/auth/google/callback",
+    callbackURL: "https://pear-programming0.herokuapp.com/auth/google/callback",
     passReqToCallback: true
   },
   function(request, accessToken, refreshToken, profile, done) {
