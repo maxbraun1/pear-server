@@ -19,7 +19,7 @@ const app = express();
 
 app.use(express.json());
 const corsOptions ={
-    origin:'https://maxbraun1.github.io', 
+    origin:'https://pearprogramming.co', 
     credentials:true,
     optionSuccessStatus:200,
 }
