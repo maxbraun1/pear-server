@@ -18,8 +18,14 @@ import { sendMessage } from "./controllers/messageController.js";
 const app = express();
 
 app.use(express.json());
+
+if(process.env.PROD == 1){
+    var origin = 'https://pearprogramming.co'
+}else{
+    var origin = 'http://localhost:3000'
+}
 const corsOptions ={
-    origin:'https://pearprogramming.co', 
+    origin:origin,
     credentials:true,
     optionSuccessStatus:200,
 }
@@ -35,16 +41,27 @@ cloudinary.config({
 });
 
 // initialize passport and cookies
-app.set('trust proxy', 1)
-app.use(
-    cookieSession({
+var cookieOptions;
+if(process.env.PROD == 1){
+    app.set('trust proxy', 1)
+    cookieOptions = {
         name: "pear-session",
         keys: [process.env.SESSION_KEY],
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
         secure: true,
         httpOnly: true,
         sameSite: 'none'
-    })
+    }
+}else{
+    cookieOptions = {
+        name: "pear-session",
+        keys: [process.env.SESSION_KEY],
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    }
+}
+
+app.use(
+    cookieSession(cookieOptions)
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -63,3 +80,9 @@ app.post("/message", sendMessage)
 app.listen(process.env.PORT || 3001, () => {
   console.log(`Server is running`);
 });
+
+if(process.env.PROD == 1){
+    console.log("server is in production mode")
+}else{
+    console.log("server is in development mode")
+}

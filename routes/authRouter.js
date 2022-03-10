@@ -38,7 +38,6 @@ router.get('/logout', (req,res) => {
 
 // Client get Logged in Status
 router.get('/loggedStatus', (req,res) => {
-  console.log(req)
   if (req.user) {
     res.json(req.user.id);
   } else {

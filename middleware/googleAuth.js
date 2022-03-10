@@ -5,10 +5,15 @@ import UserModel from '../models/userModel.js';
 import dotenv from 'dotenv'
 dotenv.config()
 
+if(process.env.PROD == 1){
+  var callback = "https://pear-programming0.herokuapp.com/auth/google/callback";
+}else{
+  var callback = "http://localhost:3001/auth/google/callback";
+}
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://pear-programming0.herokuapp.com/auth/google/callback",
+    callbackURL: callback,
     passReqToCallback: true
   },
   function(request, accessToken, refreshToken, profile, done) {
