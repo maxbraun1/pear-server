@@ -22,33 +22,13 @@ export const deletePost = async (req,res) => {
     const postID = req.body.postID;
 
     try{
-        const result = await PostModel.findOneAndDelete({ _id: postID, userID: userID });
+        const result = await PostModel.findOneAndUpdate({ _id: postID, userID: userID },{
+            deleted: true
+        });
         if(result !== null){
             // Delete Post Image from Cloudinary
             console.log(result.imageID)
             cloudinary.uploader.destroy(result.imageID);
-
-            UserModel.findOneAndUpdate({ _id: userID },{
-                $pullAll: {
-                    posts: [postID],
-                }
-            },function(err){
-                if(err){
-                    res.json({ error: true, errorMessage: err });
-                }else{
-                    UserModel.updateMany({ likedPosts: postID },{
-                        $pullAll: {
-                            likedPosts: [postID],
-                        }
-                    },function(err){
-                        if(err){
-                            res.json({ error: true, errorMessage: err });
-                        }else{
-                            res.json(true);
-                        }
-                    });
-                }
-            })
         }
     }catch(err){
         console.log(err)
@@ -77,7 +57,8 @@ export const createPost = async (req, res, next) => {
         title,
         description,
         category,
-        likesCount
+        likesCount,
+        deleted: false
     });
 
     try {
