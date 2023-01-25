@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 if(process.env.PROD == 1){
-  var callback = "https://pear-programming0.herokuapp.com/auth/google/callback";
+  var callback = "https://pear-programming-server-b49o.onrender.com/auth/google/callback";
 }else{
   var callback = "http://localhost:3001/auth/google/callback";
 }
