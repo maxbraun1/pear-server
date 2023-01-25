@@ -32,6 +32,9 @@ const postSchema = new mongoose.Schema({
     },
     imageURL: {
         type: String
+    },
+    deleted: {
+        type: Boolean
     }
 })
 
