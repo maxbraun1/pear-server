@@ -99,6 +99,15 @@ export const getUserRequests = async (req, res) => {
         let requestsArray = await Promise.all(requests.map( async (request) => {
             const user = await UserModel.findById(request.fromUser)
             const post = await PostModel.findById(request.postID)
+
+            //fix post title if post is deleted
+            let postTitle;
+            if(post == null){
+                postTitle = "[Deleted]";
+            }else{
+                postTitle = post.title;
+            }
+
             let fromUserEmail
             if(request.status == "accepted"){
                 fromUserEmail = user.email;
@@ -114,7 +123,7 @@ export const getUserRequests = async (req, res) => {
                 profilePicture : user.profilePicture,
                 firstName : user.firstName,
                 lastName : user.lastName,
-                postTitle : post.title,
+                postTitle : postTitle,
                 postID: request.postID,
                 fromUserEmail
             }
