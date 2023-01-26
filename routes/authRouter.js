@@ -27,7 +27,7 @@ router.get("/google",
 
 // Google API Callback
 router.get("/google/callback", passport.authenticate("google"), (req, res) => {
-  res.redirect('https://pearprogramming.co/feed');
+  res.redirect('https://pearprogramming.co/');
 });
 
 // Logout
